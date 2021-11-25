@@ -1,0 +1,45 @@
+import java.sql.*;
+
+public class SQLiteJDBC {
+
+   public static void main( String args[] ) {
+      Connection c = null;
+      Statement stmt = null;
+      
+      try {
+         Class.forName("org.sqlite.JDBC");
+         c = DriverManager.getConnection("jdbc:sqlite:test.db");
+         c.setAutoCommit(false);
+         System.out.println("Opened database successfully");
+
+         stmt = c.createStatement();
+         String sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                        "VALUES ('Shershaah', 'Sidharth Malhotra', ' Kiara Advani', 'Vishnuvardhan', 2021);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Dilwale Dulhania Le Jayenge', 'Shah Rukh Khan', 'Kajol', 'Aditya Chopra', 1995);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Chennai Express', 'Shah Rukh Khan', ‘Deepika Padukone’,'Rohit Shetty', 2013);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Happy New Year', 'Shah Rukh Khan', 'Deepika Padukone', 'Farah Khan', 2014);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES (' Mission: Impossible-Fallout ', 'Tom Cruise', 'Rebecca Ferguson', 'Christopher McQuarrie', 2018);"; 
+         stmt.executeUpdate(sql);
+
+         stmt.close();
+         c.commit();
+         c.close();
+      } catch ( Exception e ) {
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         System.exit(0);
+      }
+      System.out.println("Records created successfully");
+   }
+}
